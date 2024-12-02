@@ -1,19 +1,5 @@
-
-
-
-
-
-
-
-
-
-
-
 // Definimos globalmente las variables de Node.js
 /* global require, process */
-
-
-
 
 // Importamos las bibliotecas necesarias.
 const express = require("express");
@@ -61,7 +47,10 @@ app.get("/concesionarios", (request, response) => {
 app.post("/concesionarios", (request, response) => {
   const nuevoConcesionario = request.body;
   concesionarios.push(nuevoConcesionario);
-  response.json({ message: "Concesionario creado", concesionario: nuevoConcesionario });
+  response.json({
+    message: "Concesionario creado",
+    concesionario: nuevoConcesionario,
+  });
 });
 
 // Obtener un concesionario por ID
@@ -83,7 +72,10 @@ app.put("/concesionarios/:id", (request, response) => {
 
   if (concesionario) {
     concesionarios[id] = { ...concesionario, ...request.body };
-    response.json({ message: "Concesionario actualizado", concesionario: concesionarios[id] });
+    response.json({
+      message: "Concesionario actualizado",
+      concesionario: concesionarios[id],
+    });
   } else {
     response.status(404).json({ message: "Concesionario no encontrado" });
   }
@@ -136,7 +128,9 @@ app.get("/concesionarios/:id/coches/:cocheId", (request, response) => {
   if (concesionario && concesionario.coches[cocheId]) {
     response.json({ coche: concesionario.coches[cocheId] });
   } else {
-    response.status(404).json({ message: "Coche o concesionario no encontrado" });
+    response
+      .status(404)
+      .json({ message: "Coche o concesionario no encontrado" });
   }
 });
 
@@ -147,10 +141,18 @@ app.put("/concesionarios/:id/coches/:cocheId", (request, response) => {
   const concesionario = concesionarios[id];
 
   if (concesionario && concesionario.coches[cocheId]) {
-    concesionario.coches[cocheId] = { ...concesionario.coches[cocheId], ...request.body };
-    response.json({ message: "Coche actualizado", coche: concesionario.coches[cocheId] });
+    concesionario.coches[cocheId] = {
+      ...concesionario.coches[cocheId],
+      ...request.body,
+    };
+    response.json({
+      message: "Coche actualizado",
+      coche: concesionario.coches[cocheId],
+    });
   } else {
-    response.status(404).json({ message: "Coche o concesionario no encontrado" });
+    response
+      .status(404)
+      .json({ message: "Coche o concesionario no encontrado" });
   }
 });
 
@@ -161,9 +163,13 @@ app.delete("/concesionarios/:id/coches/:cocheId", (request, response) => {
   const concesionario = concesionarios[id];
 
   if (concesionario && concesionario.coches[cocheId]) {
-    concesionario.coches = concesionario.coches.filter((_, index) => index != cocheId);
+    concesionario.coches = concesionario.coches.filter(
+      (_, index) => index != cocheId,
+    );
     response.json({ message: "Coche eliminado" });
   } else {
-    response.status(404).json({ message: "Coche o concesionario no encontrado" });
+    response
+      .status(404)
+      .json({ message: "Coche o concesionario no encontrado" });
   }
 });
