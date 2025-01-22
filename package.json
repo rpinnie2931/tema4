@@ -7,7 +7,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^8.9.5"
   },
   "devDependencies": {
     "eslint": "^8.0.0"
